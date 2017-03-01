@@ -380,8 +380,8 @@ Rados object in state %s." % self.state)
         self.require_state("configuring", "connected")
         if not isinstance(option, str):
             raise TypeError('option must be a string')
-        if not isinstance(val, str):
-            raise TypeError('val must be a string')
+        if not isinstance(val, str) and not isinstance(val, unicode):
+            raise TypeError('val must be a string or unicode')
         ret = run_in_thread(self.librados.rados_conf_set,
                             (self.cluster, c_char_p(option), c_char_p(val)))
         if (ret != 0):
